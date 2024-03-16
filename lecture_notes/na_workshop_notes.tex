@@ -1,0 +1,144 @@
+\documentclass[twoside, openany]{book}
+
+\usepackage{geometry}
+\geometry{
+	a4paper,
+	top = 1.5in,
+	bottom = 1.5in,
+	inner = 1.25in,
+	outer = 1.75in
+}
+\setlength\marginparwidth{1.5in}
+
+\usepackage{amsmath, amssymb, amsthm}
+\NewCommandCopy{\proofqedsymbol}{\qedsymbol}
+\newcommand{\solutionqedsymbol}{$\triangle$}
+\newcommand{\exampleqedsymbol}{\rotatebox{45}{\proofqedsymbol}}
+
+\AtBeginEnvironment{proof}{\renewcommand{\qedsymbol}{\proofqedsymbol}}
+
+\newtheoremstyle{maintheoremstyle}
+{3pt}
+{1.5pt}
+{\normalfont}
+{}
+{\bfseries}
+{.}
+{.5em}
+{}
+\theoremstyle{maintheoremstyle}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[theorem]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\newtheorem*{question}{Question}
+\newtheorem*{solution}{Solution}
+
+\AtBeginEnvironment{solution}{%
+	\pushQED{\qed}\renewcommand{\qedsymbol}{\solutionqedsymbol}%
+}
+\AtEndEnvironment{solution}{\popQED\endsolution}
+
+\AtBeginEnvironment{example}{%
+	\pushQED{\qed}\renewcommand{\qedsymbol}{\exampleqedsymbol}%
+}
+\AtEndEnvironment{example}{\popQED\endexample}
+
+
+\usepackage{graphicx}
+\usepackage{listings, lstautogobble}
+\usepackage{xcolor}
+\usepackage{tikz} \usetikzlibrary{positioning}
+\usepackage{marginnote}
+\usepackage{titlesec}
+\lstset{
+	% language = Python,
+	tabsize = 4,
+	basicstyle = \ttfamily\small,
+	breaklines = true,
+	autogobble = true,
+	numbers = left,
+	firstnumber = last,
+	numberstyle = \tiny\color{black!70},
+	commentstyle = \color{black!70},
+	keywordstyle = ,
+	showstringspaces = false
+}
+\lstnewenvironment{lstoutput}
+{
+	\lstset{
+		basicstyle = \ttfamily\small,
+		breaklines = true,
+		autogobble = true,
+		tabsize = 4,
+		numbers = none,
+		xleftmargin = .05\linewidth,
+		xrightmargin = .15\linewidth,
+		frame = single,
+		numbers = none
+	}
+}
+{
+}
+
+\usepackage{lipsum}
+\usepackage{algorithm}		% for algorithms
+\usepackage{algpseudocode}	% for algorithms
+\usepackage{url}
+
+% macros
+
+\let\originalforall\forall
+\let\originalexists\exists
+\renewcommand{\forall}{\ \originalforall\ }
+\renewcommand{\exists}{\ \originalexists\ }
+
+\newcommand{\inv}{^{-1}}
+\newcommand{\lcm}[1]{\mathrm{lcm}(#1)}
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\ri}[1]{\mathcal{#1}}
+\newcommand\trans{^{\mathrm{T}}}
+
+\newcommand{\class}[1]{\left\langle #1 \right\rangle}
+\DeclareMathOperator\automorphism{Aut}
+\DeclareMathOperator\innermorphism{Inn}
+\newcommand\aut[1]{\mathrm{Aut}(#1)}
+\newcommand\inn[1]{\mathrm{Inn}(#1)}
+\renewcommand\ker[1]{\mathrm{Ker}}
+
+\newcommand\dd[3][]{\frac{\mathrm d^{#1}#2}{\mathrm d#3^{#1}}}
+\newcommand\pd[3][]{\frac{\partial^{#1} #2}{\partial #3^{#1}}}
+\newcommand\roc[2]{\frac{\Delta{#1}}{\Delta{#2}}}
+\newcommand\del[1]{\Delta{#1}}
+\newcommand\dir[1]{\mathcal D \hat{#1}}
+
+\DeclareMathOperator{\rank}{Rank}
+\DeclareMathOperator{\sign}{sign}
+
+
+\newcommand{\insertitem}[1]{\item #1}
+\NewDocumentCommand{\mylist}{>{\SplitList{;;;}}m}
+{
+	\begin{enumerate}[itemsep = 0pt, topsep = 0pt, parsep = 0pt, partopsep = 0pt, leftmargin = *]
+		\ProcessList{#1}{\insertitem}	
+	\end{enumerate}
+}
+
+
+\titleformat{\chapter}{\centering\LARGE\scshape}{Day\ \thechapter}{.5cm}{}
+\titleformat{\section}[runin]{\bfseries}{\S}{.25cm}{}
+
+\newcommand{\professor}[1]{\rightline{\ttfamily#1}}
+\newcommand\myskip{\vspace{2\baselineskip}}
+
+\begin{document}
+	\frontmatter
+	\input{tex/frontmatter.tex}
+	\tableofcontents
+	
+	\mainmatter
+	\input{tex/file1.tex}
+	\input{tex/closing.tex}
+\end{document}
